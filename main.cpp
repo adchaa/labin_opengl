@@ -192,7 +192,7 @@ void drawMustache(){
 void drawRabbit(){
   glPushMatrix();
     glTranslatef(rabbit.x,rabbit.y,rabbit.z);
-    glRotatef(rabbit.rotation+180,0,1,0);
+    glRotatef(rabbit.rotation,0,1,0);
     //left eye
     glPushMatrix();
       glColor3f(0.9,0.9,0.9);
@@ -364,9 +364,8 @@ void drawCloud(float x,float y,float z){
 void drawForest(){
   drawTree(2,3);
   drawTree(-2,3);
-  drawTree(-3,5);
-  for (float i = 8; i< 15; i += 3)
-    for (float j = 8; j< 15; j += 3){
+  for (float i = 5; i< 13; i += 3)
+    for (float j = 5; j< 13; j += 3){
       drawTree(i,j);
     }
 }
@@ -534,21 +533,25 @@ void specialKeyboardEvent(int key,int x,int y){
         case GLUT_KEY_UP:
           if(rabbit.z < PLATFORM_SIZE*3 - 0.5){
             rabbit.z += SPEED;
+            rabbit.rotation = 180;
           }
           break;
         case GLUT_KEY_DOWN:
-          if(rabbit.z > -PLATFORM_SIZE/3 + 0.5){
+          if(rabbit.z > -PLATFORM_SIZE/3){
             rabbit.z -= SPEED;
+            rabbit.rotation = 0;
           }
           break;
         case GLUT_KEY_LEFT:
           if(rabbit.x < PLATFORM_SIZE - 0.5){
             rabbit.x += SPEED;
+            rabbit.rotation = -90;
           }
           break;
         case GLUT_KEY_RIGHT:
           if(rabbit.x > -PLATFORM_SIZE + 0.5){
             rabbit.x -= SPEED;
+            rabbit.rotation = 90;
           }
           break;
         }
@@ -603,7 +606,7 @@ void init(){
   rabbit.x=0;
   rabbit.y=0;
   rabbit.z=0;
-  rabbit.rotation=0;
+  rabbit.rotation=180;
   rabbit.colorR = 0.5;
   rabbit.colorG = 0.5;
   rabbit.colorB = 0.5;
