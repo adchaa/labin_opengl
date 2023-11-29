@@ -307,7 +307,7 @@ void drawTree(float x,float z) {
 }
 
 void drawLine(float width){
-  glColor3f(0.9,0.9,0.9);
+  glColor3f(1,1,1);
   glBegin(GL_QUADS);
     glVertex3f(-width,0,0);
     glVertex3f(width,0,0);
@@ -326,7 +326,7 @@ void drawRoad(float size,float width){
       glVertex3f(width,0,size*2);
       glVertex3f(-width,0,size*2);
     glEnd();
-    glColor3f(0.9,0.9,0.9);
+    glColor3f(1,1,1);
     glTranslatef(0,0.001,0);
     for(float i = 0; i<size*2 ; i += 1){
       glBegin(GL_QUADS);
@@ -371,7 +371,7 @@ void drawForest(){
 }
 
 void drawPlatform(float size){
-  glColor3f(0.5,1,0.5);
+  glColor3f(0.2,1,0.2);
   glPushMatrix();
     glTranslatef(0,-0.75,0);
     //ground
@@ -627,9 +627,38 @@ void init(){
   game.win = false;
   glEnable(GL_DEPTH_TEST);
   glClearColor(0.7,0.7,1,1);
-  initOb();
   startTimer();
 }
+
+void initLight(){
+// Define material and light properties
+const GLfloat light_ambient[] = {0.0f, 0.0f, 0.0f, 1.0f};
+const GLfloat light_diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
+const GLfloat light_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
+const GLfloat light_position[] = {1.0f, 5.0f, -3.0f, 0.0f};
+const GLfloat spot_direction[] = {0.0f,0.0f,0.0f};
+
+const GLfloat mat_ambient[] = {0.7f, 0.7f, 0.7f, 1.0f};
+const GLfloat mat_diffuse[] = {0.8f, 0.8f, 0.8f, 1.0f};
+const GLfloat mat_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
+const GLfloat high_shininess[] = {100.0f};
+glEnable(GL_LIGHT0);
+glEnable(GL_NORMALIZE);
+glEnable(GL_COLOR_MATERIAL);
+glEnable(GL_LIGHTING);
+
+glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
+glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
+glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, spot_direction);
+
+/*glMaterialfv(GL_FRONT, GL_AMBIENT,   mat_ambient);
+glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
+glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
+glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);*/
+}
+
 
 int main(int argc,char ** argv){
   glutInit(&argc,argv);
@@ -645,6 +674,8 @@ int main(int argc,char ** argv){
   //glutReshapeFunc(reshapeEvent);
 
   init();
+  initOb();
+  initLight();
   glutMainLoop();
   return 0;
 }
