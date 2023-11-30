@@ -371,7 +371,7 @@ void drawForest(){
 }
 
 void drawPlatform(float size){
-  glColor3f(0.2,1,0.2);
+  glColor3f(0.5,1,0.5);
   glPushMatrix();
     glTranslatef(0,-0.75,0);
     //ground
@@ -675,7 +675,7 @@ int main(int argc,char ** argv){
 
   init();
   initOb();
-  initLight();
+  //initLight();
   glutMainLoop();
   return 0;
 }
