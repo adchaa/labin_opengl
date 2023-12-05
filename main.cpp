@@ -639,10 +639,11 @@ const GLfloat light_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
 const GLfloat light_position[] = {1.0f, 5.0f, -3.0f, 0.0f};
 const GLfloat spot_direction[] = {0.0f,0.0f,0.0f};
 
-const GLfloat mat_ambient[] = {0.7f, 0.7f, 0.7f, 1.0f};
+/*const GLfloat mat_ambient[] = {0.7f, 0.7f, 0.7f, 1.0f};
 const GLfloat mat_diffuse[] = {0.8f, 0.8f, 0.8f, 1.0f};
 const GLfloat mat_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
-const GLfloat high_shininess[] = {100.0f};
+const GLfloat high_shininess[] = {100.0f};*/
+
 glEnable(GL_LIGHT0);
 glEnable(GL_NORMALIZE);
 glEnable(GL_COLOR_MATERIAL);
