@@ -630,6 +630,7 @@ void init(){
   startTimer();
 }
 
+
 void initLight(){
 // Define material and light properties
 const GLfloat light_ambient[] = {0.0f, 0.0f, 0.0f, 1.0f};
@@ -659,12 +660,25 @@ glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
 glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);*/
 }
 
+void toggleLight(int on){
+  if(on){
+    initLight();
+  }else{
+    glDisable(GL_LIGHTING);
+    glDisable(GL_COLOR_MATERIAL);
+  }
+}
 
 int main(int argc,char ** argv){
   glutInit(&argc,argv);
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
   glutInitWindowSize(WIDTH,HEIGHT);
   glutCreateWindow("Race");
+
+  glutCreateMenu(toggleLight);
+  glutAddMenuEntry("LIGHT ON", 1);
+  glutAddMenuEntry("LIGHT OFF", 0);
+  glutAttachMenu(GLUT_MIDDLE_BUTTON);
 
   glutDisplayFunc(display);
   glutMouseFunc(mouseEvent);
