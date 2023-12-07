@@ -53,6 +53,7 @@ struct Obstacle {
   float z;
   float height;
   float width;
+  bool positiveMoving;
 };
 
 Game game;
@@ -102,6 +103,24 @@ void jump(int isJumping){
     } 
   }
   glutTimerFunc(5,jump,rabbit.isJumping);
+}
+
+void moveObstacle(int _){
+  for(int i = 0; i<NB_OB;i++){
+    Obstacle * ob = &obstacles[i];
+    if(ob->positiveMoving){
+      ob->x += 0.02;
+      if(ob->x > ROAD_WIDTH - 1){
+        ob->positiveMoving = false;
+      }
+    } else {
+      ob->x -= 0.02;
+      if(ob->x < -ROAD_WIDTH + 1){
+        ob->positiveMoving = true;
+      }
+    }
+  }
+  glutTimerFunc(5,moveObstacle,0);
 }
 
 void smile(int n){
@@ -592,7 +611,7 @@ void idle(){
 
 void initOb(){
   for(int i= 1 ; i < NB_OB+1 ; i++ ){
-    obstacles[i-1].x=0;
+    obstacles[i-1].x= ((float)rand() / RAND_MAX) * ROAD_WIDTH * 2 - ROAD_WIDTH;
     obstacles[i-1].y=0;
     obstacles[i-1].z=i * ((PLATFORM_SIZE * 2 / NB_OB)) - 5;
     obstacles[i-1].height = 3;
@@ -627,6 +646,7 @@ void init(){
   game.win = false;
   glEnable(GL_DEPTH_TEST);
   glClearColor(0.7,0.7,1,1);
+  initOb();
   startTimer();
 }
 
@@ -687,9 +707,9 @@ int main(int argc,char ** argv){
   glutSpecialFunc(specialKeyboardEvent);
   glutIdleFunc(idle);
   //glutReshapeFunc(reshapeEvent);
+  glutTimerFunc(5,moveObstacle,0);
 
   init();
-  initOb();
   //initLight();
   glutMainLoop();
   return 0;
