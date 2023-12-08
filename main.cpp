@@ -384,9 +384,11 @@ void drawForest(){
   drawTree(2,3);
   drawTree(-2,3);
   for (float i = 5; i< 13; i += 3)
-    for (float j = 5; j< 13; j += 3){
+    for (float j = 5; j< 13; j += 3)
       drawTree(i,j);
-    }
+  for (float i = -5; i> -13; i += -3)
+    for (float j = 5; j< 13; j += 3)
+      drawTree(i,j);
 }
 
 void drawPlatform(float size){
